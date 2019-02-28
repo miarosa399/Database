@@ -1,0 +1,173 @@
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\AizBell>cd c:/xampp/mysql/bin
+
+c:\xampp\mysql\bin>mysql -uroot
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 136
+Server version: 10.1.30-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database praktikum_3;
+Query OK, 1 row affected (0.00 sec)
+
+MariaDB [(none)]> use praktikum_3;
+Database changed
+MariaDB [praktikum_3]> create table mahasiswa
+    -> (NIM varchar(10) not null,
+    -> Nama varchar(10) not null,
+    -> Alamat_Jalan varchar(20) not null,
+    -> Kota text(15) not null,
+    -> Kode_Pos varchar(10) not null,
+    -> Hp varchar(15) not null,
+    -> Jenis_Kelamin varchar(10) not null,
+    -> Tanggal_Lahir date not null,
+    -> Kode_Dosen varchar(15) not null);
+Query OK, 0 rows affected (0.54 sec)
+
+MariaDB [praktikum_3]> desc mahasiswa;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| NIM           | varchar(10) | NO   |     | NULL    |       |
+| Nama          | varchar(10) | NO   |     | NULL    |       |
+| Alamat_Jalan  | varchar(20) | NO   |     | NULL    |       |
+| Kota          | tinytext    | NO   |     | NULL    |       |
+| Kode_Pos      | varchar(10) | NO   |     | NULL    |       |
+| Hp            | varchar(15) | NO   |     | NULL    |       |
+| Jenis_Kelamin | varchar(10) | NO   |     | NULL    |       |
+| Tanggal_Lahir | date        | NO   |     | NULL    |       |
+| Kode_Dosen    | varchar(15) | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+MariaDB [praktikum_3]> alter table mahasiswa add primary key(nim);
+Query OK, 0 rows affected (0.51 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [praktikum_3]> desc mahasiswa;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| NIM           | varchar(10) | NO   | PRI | NULL    |       |
+| Nama          | varchar(10) | NO   |     | NULL    |       |
+| Alamat_Jalan  | varchar(20) | NO   |     | NULL    |       |
+| Kota          | tinytext    | NO   |     | NULL    |       |
+| Kode_Pos      | varchar(10) | NO   |     | NULL    |       |
+| Hp            | varchar(15) | NO   |     | NULL    |       |
+| Jenis_Kelamin | varchar(10) | NO   |     | NULL    |       |
+| Tanggal_Lahir | date        | NO   |     | NULL    |       |
+| Kode_Dosen    | varchar(15) | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+9 rows in set (0.01 sec)
+
+MariaDB [praktikum_3]> insert into mahasiswa(nim,nama,alamat_jalan,kota,kode_pos,hp,jenis_kelamin,tanggal_lahir) values
+    -> ('11223344','Ari Santoso','','Cikarang','','','Laki-laki','1998-10-12'),
+    -> ('11223345','Ario Talib','','Cikarang','','','Laki-laki','1999-11-16'),
+    -> ('11223346','Dina Marlina','','Karawang','','','Perempuan','1997-12-01'),
+    -> ('11223347','Lisa Ayu','','Bekasi','','','Perempuan','1996-01-02'),
+    -> ('11223348','Tiara Wahidah','','Bekasi','','','Perempuan','1980-02-05'),
+    -> ('11223349','Anton Sinaga','','Cikarang','','','Laki-laki','1988-03-10');
+Query OK, 6 rows affected, 5 warnings (0.05 sec)
+Records: 6  Duplicates: 0  Warnings: 5
+
+MariaDB [praktikum_3]> select * from mahasiswa;
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| NIM      | Nama       | Alamat_Jalan | Kota     | Kode_Pos | Hp | Jenis_Kelamin | Tanggal_Lahir | Kode_Dosen |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| 11223344 | Ari Santos |              | Cikarang |          |    | Laki-laki     | 1998-10-12    |            |
+| 11223345 | Ario Talib |              | Cikarang |          |    | Laki-laki     | 1999-11-16    |            |
+| 11223346 | Dina Marli |              | Karawang |          |    | Perempuan     | 1997-12-01    |            |
+| 11223347 | Lisa Ayu   |              | Bekasi   |          |    | Perempuan     | 1996-01-02    |            |
+| 11223348 | Tiara Wahi |              | Bekasi   |          |    | Perempuan     | 1980-02-05    |            |
+| 11223349 | Anton Sina |              | Cikarang |          |    | Laki-laki     | 1988-03-10    |            |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+6 rows in set (0.00 sec)
+
+MariaDB [praktikum_3]> update mahasiswa set tanggal_lahir = '1970-08-31' where nim = '11223344';
+Query OK, 1 row affected (0.95 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [praktikum_3]> select * from mahasiswa where nim = '11223344';
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| NIM      | Nama       | Alamat_Jalan | Kota     | Kode_Pos | Hp | Jenis_Kelamin | Tanggal_Lahir | Kode_Dosen |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| 11223344 | Ari Santos |              | Cikarang |          |    | Laki-laki     | 1970-08-31    |            |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+1 row in set (0.00 sec)
+
+MariaDB [praktikum_3]> delete from mahasiswa where nim = '11223346';
+Query OK, 1 row affected (0.20 sec)
+
+MariaDB [praktikum_3]> select * from mahasiswa;
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| NIM      | Nama       | Alamat_Jalan | Kota     | Kode_Pos | Hp | Jenis_Kelamin | Tanggal_Lahir | Kode_Dosen |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| 11223344 | Ari Santos |              | Cikarang |          |    | Laki-laki     | 1970-08-31    |            |
+| 11223345 | Ario Talib |              | Cikarang |          |    | Laki-laki     | 1999-11-16    |            |
+| 11223347 | Lisa Ayu   |              | Bekasi   |          |    | Perempuan     | 1996-01-02    |            |
+| 11223348 | Tiara Wahi |              | Bekasi   |          |    | Perempuan     | 1980-02-05    |            |
+| 11223349 | Anton Sina |              | Cikarang |          |    | Laki-laki     | 1988-03-10    |            |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [praktikum_3]> select * from mahasiswa where tanggal_lahir >= '1996-01-02';
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| NIM      | Nama       | Alamat_Jalan | Kota     | Kode_Pos | Hp | Jenis_Kelamin | Tanggal_Lahir | Kode_Dosen |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| 11223345 | Ario Talib |              | Cikarang |          |    | Laki-laki     | 1999-11-16    |            |
+| 11223347 | Lisa Ayu   |              | Bekasi   |          |    | Perempuan     | 1996-01-02    |            |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+
+MariaDB [praktikum_3]> select * from mahasiswa where kota = 'bekasi' and jenis_kelamin = 'perempuan';
++----------+------------+--------------+--------+----------+----+---------------+---------------+------------+
+| NIM      | Nama       | Alamat_Jalan | Kota   | Kode_Pos | Hp | Jenis_Kelamin | Tanggal_Lahir | Kode_Dosen |
++----------+------------+--------------+--------+----------+----+---------------+---------------+------------+
+| 11223347 | Lisa Ayu   |              | Bekasi |          |    | Perempuan     | 1996-01-02    |            |
+| 11223348 | Tiara Wahi |              | Bekasi |          |    | Perempuan     | 1980-02-05    |            |
++----------+------------+--------------+--------+----------+----+---------------+---------------+------------+
+2 rows in set (0.00 sec)
+
+MariaDB [praktikum_3]> select nama,tanggal_lahir,jenis_kelamin
+    -> from mahasiswa
+    -> where tanggal_lahir > 22
+    -> and jenis_kelamin = 'laki-laki'
+    -> order by nama;
++------------+---------------+---------------+
+| nama       | tanggal_lahir | jenis_kelamin |
++------------+---------------+---------------+
+| Anton Sina | 1988-03-10    | Laki-laki     |
+| Ari Santos | 1970-08-31    | Laki-laki     |
+| Ario Talib | 1999-11-16    | Laki-laki     |
++------------+---------------+---------------+
+3 rows in set, 1 warning (0.00 sec)
+
+MariaDB [praktikum_3]> select nama,alamat_jalan from mahasiswa where nim;
++------------+--------------+
+| nama       | alamat_jalan |
++------------+--------------+
+| Ari Santos |              |
+| Ario Talib |              |
+| Lisa Ayu   |              |
+| Tiara Wahi |              |
+| Anton Sina |              |
++------------+--------------+
+5 rows in set (0.00 sec)
+
+MariaDB [praktikum_3]> select * from mahasiswa order by nama asc;
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| NIM      | Nama       | Alamat_Jalan | Kota     | Kode_Pos | Hp | Jenis_Kelamin | Tanggal_Lahir | Kode_Dosen |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+| 11223349 | Anton Sina |              | Cikarang |          |    | Laki-laki     | 1988-03-10    |            |
+| 11223344 | Ari Santos |              | Cikarang |          |    | Laki-laki     | 1970-08-31    |            |
+| 11223345 | Ario Talib |              | Cikarang |          |    | Laki-laki     | 1999-11-16    |            |
+| 11223347 | Lisa Ayu   |              | Bekasi   |          |    | Perempuan     | 1996-01-02    |            |
+| 11223348 | Tiara Wahi |              | Bekasi   |          |    | Perempuan     | 1980-02-05    |            |
++----------+------------+--------------+----------+----------+----+---------------+---------------+------------+
+5 rows in set (0.00 sec)
+
+MariaDB [praktikum_3]>

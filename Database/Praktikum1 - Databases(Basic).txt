@@ -1,0 +1,183 @@
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\AizBell>cd c:/xampp/mysql/bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 127
+Server version: 10.1.30-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dml                |
+| information_schema |
+| latihan1           |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| praktikum3         |
+| praktikum4         |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+MariaDB [(none)]> use latihan1;
+Database changed
+MariaDB [latihan1]> show tables;
++--------------------+
+| Tables_in_latihan1 |
++--------------------+
+| biodata            |
++--------------------+
+1 row in set (0.00 sec)
+
+MariaDB [latihan1]> desc biodata;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| Nama   | varchar(15) | NO   |     | NULL    |       |
+| Alamat | varchar(20) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+MariaDB [latihan1]> alter table biodata
+    -> add keterangan varchar(15) not null;
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc biodata;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| Nama       | varchar(15) | NO   |     | NULL    |       |
+| Alamat     | varchar(20) | NO   |     | NULL    |       |
+| keterangan | varchar(15) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+MariaDB [latihan1]> alter table biodata
+    -> add ID int(11) null
+    -> first;
+Query OK, 0 rows affected (11.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc biodata;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ID         | int(11)     | YES  |     | NULL    |       |
+| Nama       | varchar(15) | NO   |     | NULL    |       |
+| Alamat     | varchar(20) | NO   |     | NULL    |       |
+| keterangan | varchar(15) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [latihan1]> alter table biodata
+    -> add column
+    -> phone varchar(15) not null
+    -> after alamat;
+Query OK, 0 rows affected (0.76 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> alter table biodata modify ID char(11) null;
+Query OK, 0 rows affected (0.66 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc biodata;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ID         | char(11)    | YES  |     | NULL    |       |
+| Nama       | varchar(15) | NO   |     | NULL    |       |
+| Alamat     | varchar(20) | NO   |     | NULL    |       |
+| phone      | varchar(15) | NO   |     | NULL    |       |
+| keterangan | varchar(15) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+MariaDB [latihan1]> alter table biodata
+    -> change phone Hp varchar (20) not null;
+Query OK, 0 rows affected (0.60 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc biodata;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ID         | char(11)    | YES  |     | NULL    |       |
+| Nama       | varchar(15) | NO   |     | NULL    |       |
+| Alamat     | varchar(20) | NO   |     | NULL    |       |
+| Hp         | varchar(20) | NO   |     | NULL    |       |
+| keterangan | varchar(15) | NO   |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+MariaDB [latihan1]> alter table biodata
+    -> drop keterangan;
+Query OK, 0 rows affected (0.39 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc biodata;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | char(11)    | YES  |     | NULL    |       |
+| Nama   | varchar(15) | NO   |     | NULL    |       |
+| Alamat | varchar(20) | NO   |     | NULL    |       |
+| HP     | varchar(15) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [latihan1]> rename table biodata to data_mahasiswa;
+Query OK, 0 rows affected (0.16 sec)
+
+MariaDB [latihan1]> desc data_mahasiswa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID     | char(11)    | YES  |     | NULL    |       |
+| Nama   | varchar(15) | NO   |     | NULL    |       |
+| Alamat | varchar(20) | NO   |     | NULL    |       |
+| HP     | varchar(15) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+MariaDB [latihan1]> alter table data_mahasiswa
+    -> change ID NIM char(11) null;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc data_mahasiswa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| NIM    | char(11)    | NO   | PRI | NULL    |       |
+| Nama   | varchar(15) | NO   |     | NULL    |       |
+| Alamat | varchar(20) | NO   |     | NULL    |       |
+| HP     | varchar(15) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.15 sec)
+
+MariaDB [latihan1]> alter table data_mahasiswa add primary key(nim);
+Query OK, 0 rows affected (0.80 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [latihan1]> desc data_mahasiswa;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| NIM    | char(11)    | NO   | PRI | NULL    |       |
+| Nama   | varchar(15) | NO   |     | NULL    |       |
+| Alamat | varchar(20) | NO   |     | NULL    |       |
+| HP     | varchar(15) | NO   |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+4 rows in set (0.15 sec)
+
+MariaDB [latihan1]>

@@ -1,0 +1,94 @@
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dml                |
+| information_schema |
+| latihan1           |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| praktikum3         |
+| praktikum_3        |
+| praktikum_4        |
+| test               |
++--------------------+
+10 rows in set (0.00 sec)
+
+MariaDB [(none)]> use praktikum_4;
+Database changed
+MariaDB [praktikum_4]> show tables;
++-----------------------+
+| Tables_in_praktikum_4 |
++-----------------------+
+| data_pet              |
+| pegawai               |
++-----------------------+
+2 rows in set (0.00 sec)
+
+MariaDB [praktikum_4]> select * from data_pet;
++----------+--------+---------+------+------------+------------+
+| Name     | Owner  | Species | Sex  | Birth      | Death      |
++----------+--------+---------+------+------------+------------+
+| Puffball | Diane  | Hamster | F    | 1999-03-03 | NULL       |
+| Clawa    | Gwen   | Cat     | M    | 1994-03-17 | NULL       |
+| Fluffy   | Haroid | Cat     | F    | 1993-02-04 | NULL       |
+| Buffy    | Haroid | Dog     | F    | 1989-05-13 | NULL       |
+| Fang     | Haroid | Dog     | M    | 1990-08-27 | NULL       |
+| Bowser   | Diane  | Dog     | M    | 1989-08-31 | 1995-07-29 |
+| Chirpy   | Gwen   | Bird    | F    | 1998-09-11 | NULL       |
+| Whistler | Gwen   | Bird    | NULL | 1997-12-09 | NULL       |
+| Slim     | Benny  | Snake   | M    | 1996-04-29 | NULL       |
++----------+--------+---------+------+------------+------------+
+9 rows in set (0.00 sec)
+
+
+MariaDB [praktikum_4]> select species, count(species)AS jumlah from data_pet group by species;
++---------+--------+
+| species | jumlah |
++---------+--------+
+| Bird    |      2 |
+| Cat     |      2 |
+| Dog     |      3 |
+| Hamster |      1 |
+| Snake   |      1 |
++---------+--------+
+5 rows in set (0.00 sec)
+
+
+MariaDB [praktikum_4]> select species, sex, count(species)AS jumlah from data_pet group by species, sex;
++---------+------+--------+
+| species | sex  | jumlah |
++---------+------+--------+
+| Bird    | NULL |      1 |
+| Bird    | F    |      1 |
+| Cat     | F    |      1 |
+| Cat     | M    |      1 |
+| Dog     | F    |      1 |
+| Dog     | M    |      2 |
+| Hamster | F    |      1 |
+| Snake   | M    |      1 |
++---------+------+--------+
+8 rows in set (0.00 sec)
+
+MariaDB [praktikum_4]> select species,sex, count(sex) from data_pet where species = 'dog' or species = 'cat' group by species,sex;
++---------+------+------------+
+| species | sex  | count(sex) |
++---------+------+------------+
+| Cat     | F    |          1 |
+| Cat     | M    |          1 |
+| Dog     | F    |          1 |
+| Dog     | M    |          2 |
++---------+------+------------+
+4 rows in set (0.00 sec)
+
+MariaDB [praktikum_4]> select sex, count(name)AS jumlah from data_pet where sex is not NULL group by sex;
++------+--------+
+| sex  | jumlah |
++------+--------+
+| F    |      4 |
+| M    |      4 |
++------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [praktikum_4]>

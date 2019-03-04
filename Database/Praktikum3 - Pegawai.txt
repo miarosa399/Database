@@ -31,8 +31,8 @@ MariaDB [praktikum_4]> create table pegawai
 Query OK, 0 rows affected (0.26 sec)
 
 MariaDB [praktikum_4]> insert into pegawai(id_pegawai,nama_depan,nama_belakang,email,telepon,tgl_kontrak,id_job,gaji,tunjangan) values
-    -> ('E001','Ferry','gustiawan','ferry@yahoo.com','07117059004','2005-09-01','L0001','2000000','500000'),
-    -> ('E002','Aris','ganiardi','aris@yahoo.com','081312345678','2006-09-01','L0002','2000000','200000'),
+    -> ('E001','Ferry','gustiawan','ferry@yahoo.com','07117059004','2005-09-01','L0001','2000000','5000000'),
+    -> ('E002','Aris','ganiardi','aris@yahoo.com','081312345678','2006-09-01','L0002','2000000','2000000'),
     -> ('E003','Faiz','ahmad','faiz@yahoo.com','081367384322','2006-10-01','L0003','1500000','NULL'),
     -> ('E004','Emma','bunton','emma@yahoo.com','081363484342','2006-10-01','L0004','1500000','0'),
     -> ('E005','Mike','scoff','mike@plasa.com','08163454555','2007-09-01','L0005','1250000','0'),
@@ -44,8 +44,8 @@ MariaDB [praktikum_4]> select * from pegawai;
 +------------+------------+---------------+-----------------+--------------+-------------+--------+---------+-----------+
 | id_pegawai | nama_depan | nama_belakang | email           | telepon      | tgl_kontrak | id_job | gaji    | tunjangan |
 +------------+------------+---------------+-----------------+--------------+-------------+--------+---------+-----------+
-| E001       | Ferry      | gustiawan     | ferry@yahoo.com | 07117059004  | 2005-09-01  | L0001  | 2000000 | 500000    |
-| E002       | Aris       | ganiardi      | aris@yahoo.com  | 081312345678 | 2006-09-01  | L0002  | 2000000 | 200000    |
+| E001       | Ferry      | gustiawan     | ferry@yahoo.com | 07117059004  | 2005-09-01  | L0001  | 2000000 | 5000000   |
+| E002       | Aris       | ganiardi      | aris@yahoo.com  | 081312345678 | 2006-09-01  | L0002  | 2000000 | 2000000   |
 | E003       | Faiz       | ahmad         | faiz@yahoo.com  | 081367384322 | 2006-10-01  | L0003  | 1500000 | NULL      |
 | E004       | Emma       | bunton        | emma@yahoo.com  | 081363484342 | 2006-10-01  | L0004  | 1500000 | 0         |
 | E005       | Mike       | scoff         | mike@plasa.com  | 08163454555  | 2007-09-01  | L0005  | 1250000 | 0         |
@@ -77,8 +77,8 @@ MariaDB [praktikum_4]> select * from pegawai where tunjangan NOT LIKE 'NULL';
 +------------+------------+---------------+-----------------+--------------+-------------+--------+---------+-----------+
 | id_pegawai | nama_depan | nama_belakang | email           | telepon      | tgl_kontrak | id_job | gaji    | tunjangan |
 +------------+------------+---------------+-----------------+--------------+-------------+--------+---------+-----------+
-| E001       | Ferry      | gustiawan     | ferry@yahoo.com | 07117059004  | 2005-09-01  | L0001  | 2000000 | 500000    |
-| E002       | Aris       | ganiardi      | aris@yahoo.com  | 081312345678 | 2006-09-01  | L0002  | 2000000 | 200000    |
+| E001       | Ferry      | gustiawan     | ferry@yahoo.com | 07117059004  | 2005-09-01  | L0001  | 2000000 | 5000000   |
+| E002       | Aris       | ganiardi      | aris@yahoo.com  | 081312345678 | 2006-09-01  | L0002  | 2000000 | 2000000   |
 | E004       | Emma       | bunton        | emma@yahoo.com  | 081363484342 | 2006-10-01  | L0004  | 1500000 | 0         |
 | E005       | Mike       | scoff         | mike@plasa.com  | 08163454555  | 2007-09-01  | L0005  | 1250000 | 0         |
 +------------+------------+---------------+-----------------+--------------+-------------+--------+---------+-----------+
@@ -116,12 +116,12 @@ MariaDB [praktikum_4]> select min(gaji) as terendah from pegawai;
 +----------+
 1 row in set (0.00 sec)
 
-MariaDB [praktikum_4]> select max(gaji) as terendah from pegawai;
-+----------+
-| terendah |
-+----------+
-|  2000000 |
-+----------+
+MariaDB [praktikum_4]> select max(gaji) as tertinggi from pegawai;
++-----------+
+| tertinggi |
++-----------+
+|  2000000  |
++-----------+
 1 row in set (0.00 sec)
 
 MariaDB [praktikum_4]>

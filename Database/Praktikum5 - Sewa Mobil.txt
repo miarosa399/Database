@@ -1,0 +1,232 @@
+Microsoft Windows [Version 10.0.17134.590]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\AizBell>cd c:/xampp/mysql/bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 56
+Server version: 10.1.30-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| dml                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| praktikum1         |
+| praktikum3         |
+| praktikum_3        |
+| praktikum_4        |
+| test               |
++--------------------+
+11 rows in set (0.00 sec)
+
+MariaDB [(none)]> create database sewamobil;
+Query OK, 1 row affected (0.04 sec)
+
+MariaDB [(none)]> use Sewa_Mobil
+Database changed
+MariaDB [sewamobil]> create table Mobil (
+    -> Kode varchar(10) primary key,
+    -> Jenis varchar(20),
+    -> Merk varchar(20),
+    -> Tarif int(20),
+    -> Nopol varchar(15));
+Query OK, 0 rows affected (0.50 sec)
+
+MariaDB [Sewa_Mobil]> desc mobil;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| Kode  | varchar(10) | NO   | PRI | NULL    |       |
+| Jenis | varchar(20) | NO   |     | NULL    |       |
+| Merk  | varchar(20) | NO   |     | NULL    |       |
+| Tarif | int(20)     | NO   |     | NULL    |       |
+| Nopol | varchar(15) | NO   |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+MariaDB [sewamobil]> insert into mobil(kode, jenis, merk, tarif, nopol)
+    -> values
+    -> ("M001", "SEDAN", "BMW E5", "500000", "BG1234AA"),
+    -> ("M002", "SEDAN", "HONDA CRV", "350000", "BG2345BB"),
+    -> ("M003", "BUS", "MERCEDEZ", "1000000", "BG3456CC"),
+    -> ("M004", "BUS", "DYNA", "800000", "BG8443DD"),
+    -> ("M005", "TRUCK", "HYNO ZX", "1500000", "BG4638EE"),
+    -> ("M006", "TRUCK", "DYNA X1", "1500000", "BG8473FF");
+Query OK, 6 rows affected (0.15 sec)
+
+MariaDB [Sewa_Mobil]> select * from Mobil;
++------+-------+-----------+---------+----------+
+| Kode | Jenis | Merk      | Tarif   | Nopol    |
++------+-------+-----------+---------+----------+
+| M001 | SEDAN | BMW E5    |  500000 | BG1234AA |
+| M002 | SEDAN | HONDA CRV |  350000 | BG2345BB |
+| M003 | BUS   | MERCENDEZ | 1000000 | BG3456CC |
+| M004 | BUS   | DYNA      |  800000 | BG8443DD |
+| M005 | TRUCK | HYNO ZX   | 1500000 | BG4638EE |
+| M006 | TRUCK | DYNA X1   | 1500000 | BG8473FF |
++------+-------+-----------+---------+----------+
+6 rows in set (0.01 sec)
+
+MariaDB [Sewa_Mobil]> create table Sewa
+    -> (NoFakturSewa varchar(10),
+    -> KodePelanggan varchar(10),
+    -> TglSewa date,
+    -> KodeMobil varchar(10),
+    -> LamaSewa int(10),
+    -> UangMuka int(15));
+Query OK, 0 rows affected (0.29 sec)
+
+MariaDB [Sewa_Mobil]> desc sewa;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| NoFakturSewa  | varchar(10) | YES  |     | NULL    |       |
+| KodePelanggan | varchar(10) | YES  |     | NULL    |       |
+| TglSewa       | date        | YES  |     | NULL    |       |
+| KodeMobil     | varchar(10) | YES  |     | NULL    |       |
+| LamaSewa      | int(10)     | YES  |     | NULL    |       |
+| UangMuka      | int(15)     | YES  |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+MariaDB [sewamobil]> insert into sewa(nofaktursewa, kodepelanggan, tglsewa, kodemobil, lamasewa, uangmuka)
+    -> values
+    -> ("F001", "P001", "2008-12-01", "M001", "2", "200000"),
+    -> ("F001", "P001", "2008-12-01", "M003", "2", "200000"),
+    -> ("F002", "P002", "2008-12-02", "M002", "1", "100000");
+Query OK, 3 rows affected (0.14 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Sewa_Mobil]> select * from sewa;
++--------------+---------------+------------+-----------+----------+----------+
+| NoFakturSewa | KodePelanggan | TglSewa    | KodeMobil | LamaSewa | UangMuka |
++--------------+---------------+------------+-----------+----------+----------+
+| F001         | P001          | 2008-12-01 | M001      |        2 |   200000 |
+| F001         | P001          | 2008-12-01 | M003      |        2 |   200000 |
+| F002         | P002          | 2008-12-02 | M002      |        1 |   100000 |
++--------------+---------------+------------+-----------+----------+----------+
+3 rows in set (0.00 sec)
+
+MariaDB [Sewa_Mobil]> create table Pelanggan
+    -> (Kode varchar(10) primary key,
+    -> Nama varchar(30),
+    -> Kontak varchar(15),
+    -> Alamat text,
+    -> Kota Varchar(20),
+    -> KodePos int(10),
+    -> Telepon varchar(12));
+Query OK, 0 rows affected (0.27 sec)
+
+MariaDB [Sewa_Mobil]> desc pelanggan;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| Kode    | varchar(10) | NO   | PRI | NULL    |       |
+| Nama    | varchar(30) | YES  |     | NULL    |       |
+| Kontak  | varchar(15) | YES  |     | NULL    |       |
+| Alamat  | text        | YES  |     | NULL    |       |
+| Kota    | varchar(20) | YES  |     | NULL    |       |
+| KodePos | int(10)     | YES  |     | NULL    |       |
+| Telepon | varchar(12) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+7 rows in set (0.02 sec)
+
+MariaDB [sewamobil]> insert into pelanggan(kode, nama, kontak, alamat, kota, kodepos, telpon)
+    -> VALUES
+    -> ("P001", "PT FOX RIVER", "HENDRA", "JL. JEND. SUDIRMAN 657", "BENGKULU", "30245", "1234567"),
+    -> ("P002", "CV FOXCON", "IWAN", "JL. WAHID HASYIM 743", "JAKARTA", "73429", 234567),
+    -> ("P003", "PT FARMACON", "YANI", "JL. AHMAD DALAN 45", "LAMPUNG", "28349", "3334445");
+Query OK, 3 rows affected (0.11 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [Sewa_Mobil]> select * from pelanggan;
++------+--------------+--------+------------------------+----------+---------+---------+
+| Kode | Nama         | Kontak | Alamat                 | Kota     | KodePos | Telepon |
++------+--------------+--------+------------------------+----------+---------+---------+
+| P001 | PT FOX RIVER | HENDRA | JL. JEND. SUDIRMAN 657 | BENGKULU |   30245 | 1234567 |
+| P002 | CV FOXCON    | IWAN   | JL. WAHID HASYIM 743   | JAKARTA  |   73429 | 234567  |
+| P003 | PT FARMACON  | YANI   | JL. AHMAD DALAN 45     | LAMPUNG  |   28349 | 3334445 |
++------+--------------+--------+------------------------+----------+---------+---------+
+3 rows in set (0.00 sec)
+
+MariaDB [Sewa_Mobil]> select mobil.kode, mobil.jenis, mobil.merk, sewa.nofaktursewa, sewa.tglsewa, sewa.lamasewa
+    -> from mobil left join sewa on mobil.kode = sewa.kodemobil order by mobil.kode asc;
++------+-------+-----------+--------------+------------+----------+
+| kode | jenis | merk      | nofaktursewa | tglsewa    | lamasewa |
++------+-------+-----------+--------------+------------+----------+
+| M001 | Sedan | BMW E5    | F001         | 2008-12-01 |        2 |
+| M002 | SEDAN | HONDA CRV | F002         | 2008-12-02 |        1 |
+| M003 | BUS   | MERCENDEZ | F001         | 2008-12-01 |        2 |
+| M004 | BUS   | DYNA      | NULL         | NULL       |     NULL |
+| M005 | TRUCK | HYNO ZX   | NULL         | NULL       |     NULL |
+| M006 | TRUCK | DYNA X1   | NULL         | NULL       |     NULL |
++------+-------+-----------+--------------+------------+----------+
+6 rows in set (0.00 sec)
+
+MariaDB [Sewa_Mobil]> select
+    -> sewa.nofaktursewa,
+    -> pelanggan.nama,
+    -> sewa.tglsewa,
+    -> mobil.jenis,
+    -> mobil.merk,
+    -> sewa.lamasewa,
+    -> sewa.uangmuka
+    -> from sewa left join mobil on mobil.kode = sewa.kodemobil
+    -> left join pelanggan on pelanggan.kode = sewa.kodepelanggan;
++--------------+--------------+------------+-------+-----------+----------+----------+
+| nofaktursewa | nama         | tglsewa    | jenis | merk      | lamasewa | uangmuka |
++--------------+--------------+------------+-------+-----------+----------+----------+
+| F001         | PT FOX RIVER | 2008-12-01 | Sedan | BMW E5    |        2 |   200000 |
+| F001         | PT FOX RIVER | 2008-12-01 | BUS   | MERCENDEZ |        2 |   200000 |
+| F002         | CV FOXCON    | 2008-12-02 | SEDAN | HONDA CRV |        1 |   100000 |
++--------------+--------------+------------+-------+-----------+----------+----------+
+3 rows in set (0.00 sec)
+
+MariaDB [Sewa_Mobil]> select
+    -> pelanggan.nama,
+    -> pelanggan.kota,
+    -> sewa.nofaktursewa,
+    -> sewa.tglsewa,
+    -> sewa.kodemobil,
+    -> sewa.lamasewa,
+    -> sewa.uangmuka
+    -> from pelanggan left join sewa on pelanggan.kode = sewa.kodepelanggan;
++--------------+----------+--------------+------------+-----------+----------+----------+
+| nama         | kota     | nofaktursewa | tglsewa    | kodemobil | lamasewa | uangmuka |
++--------------+----------+--------------+------------+-----------+----------+----------+
+| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M001      |        2 |   200000 |
+| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M003      |        2 |   200000 |
+| CV FOXCON    | JAKARTA  | F002         | 2008-12-02 | M002      |        1 |   100000 |
+| PT FARMACON  | LAMPUNG  | NULL         | NULL       | NULL      |     NULL |     NULL |
++--------------+----------+--------------+------------+-----------+----------+----------+
+4 rows in set (0.00 sec)
+
+MariaDB [Sewa_Mobil]> select
+    -> pelanggan.nama,
+    -> pelanggan.kota,
+    -> sewa.nofaktursewa,
+    -> sewa.tglsewa,
+    -> sewa.kodemobil,
+    -> sewa.lamasewa,
+    -> sewa.uangmuka
+    -> from pelanggan right join sewa on pelanggan.kode = sewa.kodepelanggan;
++--------------+----------+--------------+------------+-----------+----------+----------+
+| nama         | kota     | nofaktursewa | tglsewa    | kodemobil | lamasewa | uangmuka |
++--------------+----------+--------------+------------+-----------+----------+----------+
+| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M001      |        2 |   200000 |
+| PT FOX RIVER | BENGKULU | F001         | 2008-12-01 | M003      |        2 |   200000 |
+| CV FOXCON    | JAKARTA  | F002         | 2008-12-02 | M002      |        1 |   100000 |
++--------------+----------+--------------+------------+-----------+----------+----------+
+3 rows in set (0.00 sec)
+
+MariaDB [Sewa_Mobil]>

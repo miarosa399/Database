@@ -1,0 +1,293 @@
+Microsoft Windows [Version 10.0.17134.648]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\AizBell>cd c:/xampp/mysql/bin
+
+c:\xampp\mysql\bin>mysql -u root
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 6
+Server version: 10.1.30-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2017, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database DB_Karyawan;
+Query OK, 1 row affected (0.01 sec)
+
+MariaDB [(none)]> use DB_Karyawan;
+Database changed
+MariaDB [DB_Karyawan]> create table Perusahaan
+    -> (ID_P varchar(10) primary key,
+    -> Nama varchar(45),
+    -> Alamat varchar(45));
+Query OK, 0 rows affected (0.23 sec)
+
+MariaDB [DB_Karyawan]> desc perusahaan;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ID_P   | varchar(10) | NO   | PRI | NULL    |       |
+| Nama   | varchar(45) | YES  |     | NULL    |       |
+| Alamat | varchar(45) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+MariaDB [DB_Karyawan]> insert into perusahaan(id_p,nama,alamat) values
+    -> ('P01','Kantor Pusat',''),
+    -> ('P02','Cabang Bekasi','');
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [DB_Karyawan]> select * from perusahaan;
++------+---------------+--------+
+| ID_P | Nama          | Alamat |
++------+---------------+--------+
+| P01  | Kantor Pusat  |        |
+| P02  | Cabang Bekasi |        |
++------+---------------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [DB_Karyawan]> create table Departemen
+    -> (ID_Dept varchar(10) primary key,
+    -> Nama varchar(45),
+    -> ID_P varchar(10),
+    -> Manajer_NIK varchar(10));
+Query OK, 0 rows affected (0.25 sec)
+
+MariaDB [DB_Karyawan]> desc departemen;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| ID_Dept     | varchar(10) | NO   | PRI | NULL    |       |
+| Nama        | varchar(45) | YES  |     | NULL    |       |
+| ID_P        | varchar(10) | YES  |     | NULL    |       |
+| Manajer_NIK | varchar(10) | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.03 sec)
+
+MariaDB [DB_Karyawan]> create table Karyawan
+    -> (NIK varchar(10) primary key,
+    -> Nama varchar(45),
+    -> ID_Dept varchar(10),
+    -> Sup_NIK varchar(10));
+Query OK, 0 rows affected (0.92 sec)
+
+MariaDB [DB_Karyawan]> desc karyawan;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| NIK     | varchar(10) | NO   | PRI | NULL    |       |
+| Nama    | varchar(45) | YES  |     | NULL    |       |
+| ID_Dept | varchar(10) | YES  |     | NULL    |       |
+| Sup_NIK | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+MariaDB [DB_Karyawan]> insert into karyawan(nik,nama,id_dept,sup_nik) values
+    -> ('N01','Ari','D01',''),
+    -> ('N02','Dina','D01',''),
+    -> ('N03','Rika','D03',''),
+    -> ('N04','Ratih','D01','N01'),
+    -> ('N05','Riko','D01','N01'),
+    -> ('N06','Dani','D02',''),
+    -> ('N07','Anis','D02','N06'),
+    -> ('N08','Dika','D02','N06');
+Query OK, 8 rows affected (0.21 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+MariaDB [DB_Karyawan]> select * from karyawan;
++-----+-------+---------+---------+
+| NIK | Nama  | ID_Dept | Sup_NIK |
++-----+-------+---------+---------+
+| N01 | Ari   | D01     |         |
+| N02 | Dina  | D01     |         |
+| N03 | Rika  | D03     |         |
+| N04 | Ratih | D01     | N01     |
+| N05 | Riko  | D01     | N01     |
+| N06 | Dani  | D02     |         |
+| N07 | Anis  | D02     | N06     |
+| N08 | Dika  | D02     | N06     |
++-----+-------+---------+---------+
+8 rows in set (0.00 sec)
+
+MariaDB [DB_Karyawan]> create table Project
+    -> (ID_Proj varchar(10) primary key,
+    -> Nama varchar(45),
+    -> TglMulai date,
+    -> TglSelesai date,
+    -> Status tinyint(1));
+Query OK, 0 rows affected (0.27 sec)
+
+MariaDB [DB_Karyawan]> desc project;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| ID_Proj    | varchar(10) | NO   | PRI | NULL    |       |
+| Nama       | varchar(45) | YES  |     | NULL    |       |
+| TglMulai   | date        | YES  |     | NULL    |       |
+| TglSelesai | date        | YES  |     | NULL    |       |
+| Status     | tinyint(1)  | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+MariaDB [DB_Karyawan]> insert into project(id_proj,nama,tglmulai,tglselesai,status) values
+    -> ('PJ01','A','2019-01-10','2019-03-10','1'),
+    -> ('PJ02','B','2019-02-15','2019-04910','1');
+Query OK, 2 rows affected, 1 warning (0.12 sec)
+Records: 2  Duplicates: 0  Warnings: 1
+
+MariaDB [DB_Karyawan]> select * from project;
++---------+------+------------+------------+--------+
+| ID_Proj | Nama | TglMulai   | TglSelesai | Status |
++---------+------+------------+------------+--------+
+| PJ01    | A    | 2019-01-10 | 2019-03-10 |      1 |
+| PJ02    | B    | 2019-02-15 | 0000-00-00 |      1 |
++---------+------+------------+------------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [DB_Karyawan]> create table Project_Detail
+    -> (ID_Proj varchar(10),
+    -> NIK varchar(10));
+Query OK, 0 rows affected (0.34 sec)
+
+MariaDB [DB_Karyawan]> desc project_detail;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| ID_Proj | varchar(10) | NO   |     | NULL    |       |
+| NIK     | varchar(10) | YES  |     | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+2 rows in set (0.14 sec)
+
+MariaDB [DB_Karyawan]> insert into project_detail(id_proj,nik) values
+    -> ('PJ01','N01'),
+    -> ('PJ01','N02'),
+    -> ('PJ01','N03'),
+    -> ('PJ01','N04'),
+    -> ('PJ01','N05'),
+    -> ('PJ01','N07'),
+    -> ('PJ01','N08'),
+    -> ('PJ02','N01'),
+    -> ('PJ02','N03'),
+    -> ('PJ02','N05'),
+    -> ('PJ03','N03'),
+    -> ('PJ03','N07'),
+    -> ('PJ03','N08');
+Query OK, 13 rows affected (0.12 sec)
+Records: 13  Duplicates: 0  Warnings: 0
+
+MariaDB [DB_Karyawan]> select * from project_detail;
++---------+------+
+| ID_Proj | NIK  |
++---------+------+
+| PJ01    | N01  |
+| PJ01    | N02  |
+| PJ01    | N03  |
+| PJ01    | N04  |
+| PJ01    | N05  |
+| PJ01    | N07  |
+| PJ01    | N08  |
+| PJ02    | N01  |
+| PJ02    | N03  |
+| PJ02    | N05  |
+| PJ03    | N03  |
+| PJ03    | N07  |
+| PJ03    | N08  |
++---------+------+
+13 rows in set (0.00 sec)
+
+MariaDB [db_karyawan]> alter table departemen
+    -> add foreign key fk_perusahaan(id_p)
+    -> references perusahaan(id_p)
+    -> ON UPDATE CASCADE ON DELETE RESTRICT;
+Query OK, 4 rows affected (1.06 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [db_karyawan]> select * from perusahaan;
++------+---------------+--------+
+| ID_P | Nama          | Alamat |
++------+---------------+--------+
+| P01  | Kantor Pusat  |        |
+| P02  | Cabang Bekasi |        |
++------+---------------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [db_karyawan]> update perusahaan set nama ='Cabang Bandung' where id_p ='P02';
+Query OK, 1 row affected (0.14 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [db_karyawan]> select * from perusahaan;
++------+----------------+--------+
+| ID_P | Nama           | Alamat |
++------+----------------+--------+
+| P01  | Kantor Pusat   |        |
+| P02  | Cabang Bandung |        |
++------+----------------+--------+
+2 rows in set (0.00 sec)
+
+MariaDB [db_karyawan]> delete from perusahaan where id_p ='P02';
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`db_karyawan`.`departemen`, CONSTRAINT `fk_perusahaan` FOREIGN KEY (`ID_P`) REFERENCES `perusahaan` (`ID_P`) ON UPDATE CASCADE)
+MariaDB [db_karyawan]> alter table departemen drop foreign key fk_perusahaan;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [db_karyawan]> alter table departemen
+    -> add foreign key fk_perusahaan(id_p)
+    -> references perusahaan(id_p)
+    -> ON UPDATE CASCADE ON DELETE SET NULL;
+Query OK, 4 rows affected (0.88 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [db_karyawan]> delete from perusahaan where id_p ='P02';
+Query OK, 1 row affected (0.07 sec)
+
+MariaDB [db_karyawan]> select * from perusahaan;
++------+--------------+--------+
+| ID_P | Nama         | Alamat |
++------+--------------+--------+
+| P01  | Kantor Pusat |        |
++------+--------------+--------+
+1 row in set (0.00 sec)
+
+MariaDB [db_karyawan]> select * from departemen;
++---------+-----------+------+-------------+
+| ID_Dept | Nama      | ID_P | Manajer_NIK |
++---------+-----------+------+-------------+
+| D01     | Produksi  | NULL | N01         |
+| D02     | Marketing | P01  | N03         |
+| D03     | RnD       | NULL |             |
+| D04     | Logistik  | NULL |             |
++---------+-----------+------+-------------+
+4 rows in set (0.01 sec)
+
+MariaDB [db_karyawan]>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
